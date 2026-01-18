@@ -1,1 +1,5 @@
-
+smtp_server: "smtp.gmail.com"
+smtp_port: 587
+email_user: "jaisonar11@gmail.com"
+email_pass: "--"
+alert_recipient: "jais.comp_ioe@bkc.met.edu"
