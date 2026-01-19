@@ -15,21 +15,6 @@ An agentless monitoring solution built with Ansible to automatically discover AW
 
 ---
 
-## Project Structure
-
-ansible-cloud-vm-health-monitoring/
-├── inventory/
-├── group_vars/
-├── templates/
-├── ansible.cfg
-├── playbook.yaml
-├── collect_metrics.yaml
-├── send_report.yaml
-├── README.md
-└── SETUP.md
-
----
-
 ## Getting Started
 
 Detailed setup and execution steps are available in **[SETUP.md](SETUP.md)**.
