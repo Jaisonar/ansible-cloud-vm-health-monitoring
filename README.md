@@ -1,10 +1,38 @@
-# Ansible-Driven Cloud VM Health Monitoring
+# Ansible Cloud VM Health Monitoring
 
-Agentless framework to monitor AWS EC2 VM health using Ansible.
+An agentless monitoring solution built with Ansible to automatically discover AWS EC2 instances, collect system health metrics, and generate reports.
+
+---
 
 ## Features
-- Real-time CPU, memory, and disk monitoring across multiple EC2 instances
-- Automated EC2 instance discovery, deterministic tagging, and SSH key propagation
-- Modular, reusable Ansible playbooks leveraging Python (`venv + boto3`) and Ansible collections
-- Structured configurations using `ansible.cfg`, `group_vars`, and Jinja2 templates
-- Fully automated workflow for discovery, tagging, SSH setup, metric collection, and reporting
+
+- Agentless monitoring of CPU, memory, and disk usage on EC2 instances
+- Automated EC2 discovery using Ansible dynamic inventory
+- Deterministic instance tagging via AWS CLI
+- Secure, passwordless SSH access
+- Modular and reusable Ansible playbooks
+- Scalable configuration using `ansible.cfg`, `group_vars`, and Jinja2 templates
+
+---
+
+## Project Structure
+
+ansible-cloud-vm-health-monitoring/
+├── inventory/
+├── group_vars/
+├── templates/
+├── ansible.cfg
+├── playbook.yaml
+├── collect_metrics.yaml
+├── send_report.yaml
+├── README.md
+└── SETUP.md
+
+---
+
+## Getting Started
+
+Detailed setup and execution steps are available in **[SETUP.md](SETUP.md)**.
+
+---
+
