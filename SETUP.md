@@ -17,9 +17,13 @@ sudo apt install ansible -y
 # 4. Install AWS CLI
 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
 sudo apt install unzip -y
+
 unzip awscliv2.zip
+
 sudo ./aws/install
+
 aws configure
 
 # 5. Tagging Script
@@ -36,13 +40,18 @@ instance_ids=$(aws ec2 describe-instances \
 sorted_ids=($(echo "$instance_ids" | tr '\t' '\n' | sort))
 
 # Rename instances sequentially
-counter=1
+counter=1 
+
 for id in "${sorted_ids[@]}"; do
+
   name="web-$(printf "%02d" $counter)"
+  
   echo "Tagging $id as $name"
+  
   aws ec2 create-tags --resources "$id" \
     --tags Key=Name,Value="$name"
   ((counter++))
+
 done
 
 Make it executable:
@@ -53,9 +62,13 @@ chmod +x tag_instances.sh
 # 6. Python Virtual Environment & Packages
 
 sudo apt install python3-venv -y
+
 python3 -m venv ansible-env
+
 source ansible-env/bin/activate
+
 pip install boto3 botocore
+
 ansible-galaxy collection install amazon.aws
 
 # 7. Dynamic Inventory Validation
@@ -69,18 +82,24 @@ Create copy_ssh_key.sh:
 #!/bin/bash
 
 PEM_FILE="rsa.pem"
+
 PUB_KEY=$(cat ~/.ssh/id_rsa.pub)
+
 USER="ubuntu"  # or ec2-user
+
 INVENTORY_FILE="inventory/aws_ec2.yaml"
 
 HOSTS=$(ansible-inventory -i $INVENTORY_FILE --list | jq -r '._meta.hostvars | keys[]')
 
 for HOST in $HOSTS; do
+
   echo "Injecting key into $HOST"
+  
   ssh -o StrictHostKeyChecking=no -i $PEM_FILE $USER@$HOST "
-    mkdir -p ~/.ssh && \
-    echo \"$PUB_KEY\" >> ~/.ssh/authorized_keys && \
-    chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
+  
+  mkdir -p ~/.ssh && \
+  echo \"$PUB_KEY\" >> ~/.ssh/authorized_keys && \    
+  chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
   "
 done
 
